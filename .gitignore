@@ -25,3 +25,4 @@ npm-debug.log*
 
 # Mock/test output
 mock-output/
+.vercel

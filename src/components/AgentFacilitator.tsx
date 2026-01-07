@@ -112,22 +112,49 @@ export default function AgentFacilitator() {
 
       <main className="max-w-6xl mx-auto px-6 py-12">
         {/* Hero */}
-        <div className="mb-16">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-12 h-px bg-blue-600" />
-            <span className="text-xs font-mono uppercase text-blue-600 tracking-widest">
-              Bundle Generator
-            </span>
+        <div className="mb-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-px bg-blue-600" />
+              <span className="text-xs font-mono uppercase text-blue-600 tracking-widest">
+                Bundle Generator
+              </span>
+            </div>
+            <h1 className="text-5xl md:text-7xl font-medium tracking-tight leading-[0.9] mb-6">
+              Generate your
+              <br />
+              <span className="font-serif italic text-stone-400">Ralph bundle.</span>
+            </h1>
+            <p className="text-stone-500 max-w-xl font-mono text-sm">
+              Configure your AI agent project and generate a complete Ralph bundle
+              with prd.json, prompt.md, and ralph.sh ready for autonomous execution.
+            </p>
           </div>
-          <h1 className="text-5xl md:text-7xl font-medium tracking-tight leading-[0.9] mb-6">
-            Generate your
-            <br />
-            <span className="font-serif italic text-stone-400">Ralph bundle.</span>
-          </h1>
-          <p className="text-stone-500 max-w-xl font-mono text-sm">
-            Configure your AI agent project and generate a complete Ralph bundle
-            with prd.json, prompt.md, and ralph.sh ready for autonomous execution.
-          </p>
+
+          {/* Ralph Wiggum Hero Image */}
+          <div className="relative">
+            <div className="aspect-square max-w-md mx-auto bg-gradient-to-br from-stone-200 to-stone-300 rounded-2xl overflow-hidden border border-stone-300 shadow-xl">
+              <img
+                src="/ralph-coding.png"
+                alt="Ralph Wiggum coding"
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  target.parentElement!.innerHTML = `
+                    <div class="w-full h-full flex flex-col items-center justify-center p-8 text-center">
+                      <div class="text-6xl mb-4">👨‍💻</div>
+                      <div class="font-serif italic text-2xl text-stone-600 mb-2">"I'm helping!"</div>
+                      <div class="text-xs font-mono text-stone-400">- Ralph Wiggum</div>
+                    </div>
+                  `;
+                }}
+              />
+            </div>
+            <div className="absolute -bottom-4 -right-4 bg-blue-600 text-white px-4 py-2 text-xs font-mono uppercase tracking-widest rounded shadow-lg">
+              Me fail English? Unpossible!
+            </div>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
