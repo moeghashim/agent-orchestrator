@@ -1,0 +1,77 @@
+{
+  "project": "Agent Facilitator",
+  "branchName": "ralph/facilitator-claude-4.5",
+  "description": "Building the Agent Facilitator app to generate autonomous AI bundles for Claude 4.5 and beyond, without using AMP.",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Define Domain Models for LLM Providers",
+      "description": "As a developer, I want to define types for different LLM providers (Claude, GPT, etc.) and their specific CLI commands to facilitate non-AMP script generation.",
+      "acceptanceCriteria": [
+        "Create 'LlmProvider' enum with 'CLAUDE_4_5', 'GPT_4O', etc.",
+        "Define 'LlmConfig' type mapping providers to their execution command (e.g., 'anthropic' for Claude)",
+        "Update 'ProjectConfig' to include these types",
+        "npm run typecheck passes"
+      ],
+      "priority": 1,
+      "passes": true,
+      "notes": "Created src/types/llm.ts with LlmProvider enum, LlmConfig type with CLI commands, and ProjectConfig interface"
+    },
+    {
+      "id": "US-002",
+      "title": "Implement PRD-to-JSON Logic",
+      "description": "As a user, I want my text description converted into the structured 'prd.json' format required by Ralph.",
+      "acceptanceCriteria": [
+        "Implement utility to map text description to the Ralph JSON schema",
+        "Output prd.json matches SKILL.md schema: project, branchName (prefixed ralph/...), userStories array",
+        "Each story includes id, title, description, acceptanceCriteria, priority, passes=false, notes=\"\"",
+        "Acceptance criteria include \"npm run typecheck passes\" (and \"npm test passes\" where relevant); UI stories include \"Verify in browser using dev-browser skill\"",
+        "Stories are right-sized and ordered by dependency",
+        "npm test passes"
+      ],
+      "priority": 2,
+      "passes": true,
+      "notes": "Created src/lib/prd-generator.ts with generatePrd, validatePrd, and serializePrd functions"
+    },
+    {
+      "id": "US-003",
+      "title": "Generate Non-AMP Ralph Script Template",
+      "description": "As a user, I want a 'ralph.sh' that uses my chosen LLM (e.g. Claude 4.5) via its native CLI instead of AMP.",
+      "acceptanceCriteria": [
+        "Template for 'ralph.sh' matches canonical logic from https://raw.githubusercontent.com/snarktank/ralph/main/ralph.sh (archive, .last-branch, progress reset, <promise>COMPLETE</promise> detection)",
+        "LLM invocation uses a provider-selected command (e.g., anthropic CLI) instead of amp",
+        "Preserve SCRIPT_DIR-based path resolution so the script runs from any cwd",
+        "The generated script correctly pipes prompt.md to the selected LLM's CLI/API",
+        "npm run typecheck passes"
+      ],
+      "priority": 3,
+      "passes": true,
+      "notes": "Created src/lib/ralph-generator.ts with generateRalphScript, generatePromptMd, and generateBundle functions"
+    },
+    {
+      "id": "US-004",
+      "title": "Build Industrial Intake UI with Model Selection",
+      "description": "As a user, I want to select 'Claude Opus 4.5' from a high-end UI and input my project details.",
+      "acceptanceCriteria": [
+        "Dropdown includes 'Claude Opus 4.5' as a primary option",
+        "UI matches 'Warm Industrial Gray' style with Playfair Display typography",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 4,
+      "passes": true,
+      "notes": "Created AgentFacilitator component with model dropdown, project inputs, feature list, and live preview"
+    },
+    {
+      "id": "US-005",
+      "title": "Implement ZIP Bundle Export",
+      "description": "As a user, I want to download my generated Ralph bundle as a ZIP file.",
+      "acceptanceCriteria": [
+        "Files are placed in 'scripts/ralph/' and 'tasks/' folders within the ZIP",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 5,
+      "passes": true,
+      "notes": "Created zip-export.ts with JSZip, downloads ralph-bundle-{project}.zip with correct folder structure"
+    }
+  ]
+}

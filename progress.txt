@@ -1,0 +1,135 @@
+# Ralph Progress Log
+Started: 2026-01-07
+---
+
+## US-001: Define Domain Models for LLM Providers - COMPLETE
+
+### Implementation:
+- Created `src/types/llm.ts` with domain models
+- `LlmProvider` enum: CLAUDE_4_5, CLAUDE_SONNET, GPT_4O, GPT_4_TURBO
+- `LlmConfig` interface: provider, displayName, cliCommand, modelId, description, maxTokens
+- `LLM_CONFIGS` record mapping each provider to its configuration
+- `UserStory` interface for PRD stories
+- `ProjectConfig` interface for full project configuration
+- `GeneratedBundle` interface for output files
+
+### Technical Patterns:
+- Using TypeScript enums with string values for serialization
+- Record type for type-safe provider-to-config mapping
+- Created tsconfig.json for strict TypeScript checking
+- Added `npm run typecheck` script
+
+### Files Modified:
+- src/types/llm.ts (new)
+- src/types/index.ts (new)
+- tsconfig.json (new)
+- tsconfig.node.json (new)
+- package.json (added typecheck script)
+
+---
+
+## US-002: Implement PRD-to-JSON Logic - COMPLETE
+
+### Implementation:
+- Created `src/lib/prd-generator.ts` with core generation logic
+- `generatePrd()`: Converts user input to full ProjectConfig
+- `validatePrd()`: Validates PRD against Ralph schema requirements
+- `serializePrd()`: JSON serialization with formatting
+- Auto-generates branch names with `ralph/` prefix
+- Story IDs follow `US-XXX` pattern
+- UI features auto-detected and get "dev-browser skill" criterion
+- All stories get "npm run typecheck passes" criterion
+
+### Technical Patterns:
+- Feature detection for UI vs logic stories
+- Branch name sanitization (lowercase, hyphens)
+- Story priority based on feature order (dependency ordering)
+
+### Files Modified:
+- src/lib/prd-generator.ts (new)
+- src/lib/index.ts (new)
+
+---
+
+## US-003: Generate Non-AMP Ralph Script Template - COMPLETE
+
+### Implementation:
+- Created `src/lib/ralph-generator.ts`
+- `generateRalphScript()`: Creates bash script with provider-specific CLI
+- `generatePromptMd()`: Creates system prompt for the agent
+- `generateBundle()`: Returns all three files (ralph.sh, prompt.md, prd.json)
+- Supports anthropic and openai CLI commands
+- Preserves SCRIPT_DIR-based path resolution
+- Includes archive logic, .last-branch tracking, progress reset
+- Detects `<promise>COMPLETE</promise>` signal
+
+### Technical Patterns:
+- Provider-to-CLI mapping via LLM_CONFIGS
+- Template literals for bash script generation
+- Proper escaping for shell variables
+
+### Files Modified:
+- src/lib/ralph-generator.ts (new)
+- src/lib/index.ts (updated)
+
+---
+
+## US-004: Build Industrial Intake UI with Model Selection - COMPLETE
+
+### Implementation:
+- Created `src/components/AgentFacilitator.tsx`
+- LLM provider dropdown with Claude Opus 4.5 as default
+- Project name and description inputs
+- Dynamic feature list with add/remove
+- Live preview panel showing generated files
+- Validation error display
+
+### Design System Applied:
+- Background: #EBEBE8 (Warm Industrial Gray)
+- Text: #18181B
+- Accent: blue-600
+- Typography: Playfair Display (serif italic) for headers
+- Monospace for technical labels and code preview
+- Industrial styling with borders and spacing
+
+### Files Modified:
+- src/components/AgentFacilitator.tsx (new)
+- src/components/index.ts (new)
+- src/App.tsx (updated to use AgentFacilitator)
+
+---
+
+## US-005: Implement ZIP Bundle Export - COMPLETE
+
+### Implementation:
+- Created `src/lib/zip-export.ts` using JSZip
+- `createBundleZip()`: Creates ZIP with proper folder structure
+- `downloadBundleZip()`: Triggers browser download
+- ZIP structure:
+  - scripts/ralph/ralph.sh
+  - scripts/ralph/prompt.md
+  - scripts/ralph/prd.json
+  - tasks/ (empty folder)
+  - progress.txt (initialized)
+
+### Technical Patterns:
+- JSZip for client-side ZIP generation
+- Blob API for file download
+- Safe filename generation from project name
+
+### Files Modified:
+- src/lib/zip-export.ts (new)
+- src/lib/index.ts (updated)
+- src/components/AgentFacilitator.tsx (added download button)
+- package.json (added jszip dependency)
+
+---
+
+# PROJECT COMPLETE
+
+All 5 user stories have been implemented and pass their acceptance criteria:
+- US-001: Domain models for LLM providers
+- US-002: PRD-to-JSON logic
+- US-003: Non-AMP Ralph script generation
+- US-004: Industrial intake UI
+- US-005: ZIP bundle export
