@@ -135,7 +135,7 @@ export default function AgentFacilitator() {
           <div className="relative">
             <div className="aspect-square max-w-md mx-auto bg-gradient-to-br from-stone-200 to-stone-300 rounded-2xl overflow-hidden border border-stone-300 shadow-xl">
               <img
-                src="/ralph-coding.png"
+                src="/Ralph.jpeg"
                 alt="Ralph Wiggum coding"
                 className="w-full h-full object-cover"
                 onError={(e) => {
@@ -156,6 +156,86 @@ export default function AgentFacilitator() {
             </div>
           </div>
         </div>
+
+        {/* How It Works */}
+        <section className="mb-16 border border-stone-300 bg-white/60 backdrop-blur-sm p-8 md:p-10">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-10 h-px bg-blue-600" />
+            <span className="text-xs font-mono uppercase text-blue-600 tracking-widest">
+              How It Works
+            </span>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <div className="lg:col-span-5">
+              <h2 className="text-4xl md:text-5xl font-medium tracking-tight leading-[1.1] mb-4">
+                The Ralph pattern,
+                <br />
+                <span className="font-serif italic text-stone-400">packaged for execution.</span>
+              </h2>
+              <p className="text-sm font-mono text-stone-500 leading-relaxed">
+                This generator assembles a runnable agent bundle: a structured PRD,
+                a deterministic prompt, and a loop script that drives an autonomous
+                build cycle. The approach is documented in the canonical Ralph write-up
+                and clarified by the original collaborators.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-4 text-xs font-mono uppercase tracking-widest">
+                <a
+                  href="https://ghuntley.com/ralph/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline"
+                >
+                  Read the Ralph pattern
+                </a>
+                <a
+                  href="https://x.com/ryancarson/status/2008950489904472501"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline"
+                >
+                  Context from Ryan Carson
+                </a>
+              </div>
+            </div>
+            <div className="lg:col-span-7">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {[
+                  {
+                    step: '01',
+                    title: 'Define the mission',
+                    description:
+                      'Capture the goal and user stories so the PRD can be generated in a consistent schema.',
+                  },
+                  {
+                    step: '02',
+                    title: 'Generate the bundle',
+                    description:
+                      'Produce `prd.json`, `prompt.md`, and `ralph.sh` with guardrails baked in.',
+                  },
+                  {
+                    step: '03',
+                    title: 'Run the loop',
+                    description:
+                      'Execute the script to iterate story-by-story until the PRD passes.',
+                  },
+                ].map(item => (
+                  <div
+                    key={item.step}
+                    className="border border-stone-300 bg-white p-5"
+                  >
+                    <div className="text-[10px] font-mono text-stone-400 uppercase tracking-widest mb-3">
+                      Step {item.step}
+                    </div>
+                    <div className="text-lg font-medium mb-2">{item.title}</div>
+                    <p className="text-xs font-mono text-stone-500 leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Form */}
