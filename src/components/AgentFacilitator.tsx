@@ -485,6 +485,17 @@ export default function AgentFacilitator() {
               @ryancarson
             </a>
           </div>
+          <div className="text-xs font-mono text-stone-400 text-center pt-2">
+            Design credit:{' '}
+            <a
+              href="https://app.superdesign.dev/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:underline"
+            >
+              Superdesign
+            </a>
+          </div>
         </div>
       </footer>
     </div>

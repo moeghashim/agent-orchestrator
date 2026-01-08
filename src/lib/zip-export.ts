@@ -1,4 +1,7 @@
 import JSZip from 'jszip';
+import prdJsonExample from '../../prd.json.example?raw';
+import prdSkillMd from '../../skills/prd/SKILL.md?raw';
+import ralphSkillMd from '../../skills/ralph/SKILL.md?raw';
 
 interface BundleFiles {
   ralphSh: string;
@@ -11,6 +14,9 @@ interface BundleFiles {
  * - scripts/ralph/ralph.sh
  * - scripts/ralph/prompt.md
  * - scripts/ralph/prd.json
+ * - prd.json.example
+ * - skills/prd/SKILL.md
+ * - skills/ralph/SKILL.md
  * - tasks/ (empty folder for future tasks)
  */
 export async function createBundleZip(
@@ -29,6 +35,18 @@ export async function createBundleZip(
 
   // Create tasks/ folder (empty, for future task files)
   zip.folder('tasks');
+
+  zip.file('prd.json.example', prdJsonExample);
+
+  const prdSkillsFolder = zip.folder('skills/prd');
+  if (prdSkillsFolder) {
+    prdSkillsFolder.file('SKILL.md', prdSkillMd);
+  }
+
+  const ralphSkillsFolder = zip.folder('skills/ralph');
+  if (ralphSkillsFolder) {
+    ralphSkillsFolder.file('SKILL.md', ralphSkillMd);
+  }
 
   // Create a basic progress.txt
   const progressContent = `# Ralph Progress Log
